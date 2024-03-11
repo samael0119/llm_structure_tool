@@ -142,7 +142,7 @@ def pred_res(prompt,model,tokenizer):
 
 def pulse_infer_model(model_name, lora_name, config_path, test_data_path):
     try:
-        model, tokenizer = load_model(lora_name)
+        model, tokenizer = load_model(model_name, lora_name)
         if model == 'no enough GPU, please try it later!':
             return 'no enough GPU, please try it later!'
 
@@ -257,7 +257,7 @@ def load_model(model_name,lora_name):
             os.environ["CUDA_VISIBLE_DEVICES"] = str(available_gpus[0])
             print('available_gpus[0]',available_gpus[0])
         else:
-            return 'no enough GPU, please try it later!','',''
+            return 'no enough GPU, please try it later!', ''
         try:
             import torch
             from transformers import AutoModelForCausalLM, AutoTokenizer, AutoConfig
@@ -297,7 +297,7 @@ def load_model(model_name,lora_name):
             lora_change = False
         except Exception as e:
             print('error!! ', e)
-            return e,'',''
+            return e, ''
     return model, tokenizer
 import re
 
